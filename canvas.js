@@ -12,6 +12,7 @@ var walls = document.getElementById("walls");
 var plants = document.getElementById("plants");  
 var time = document.getElementById("secondsPassed");
 var erode = document.getElementById("erodePercent");
+var speed = document.getElementById("speed");
 
 function reset() {
     map = new Map();
@@ -74,4 +75,4 @@ window.setInterval(function() {
     map.drawMap();
 
     timer++;
-}, 100)
+}, 100-speed.value)
