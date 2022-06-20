@@ -63,7 +63,7 @@ function createPlants() {
 
 reset();
 
-window.setInterval(function() {
+function frame() {
     map.moveMap();
     if (timer%20 == 0) {
         createWave();
@@ -75,4 +75,10 @@ window.setInterval(function() {
     map.drawMap();
 
     timer++;
-}, 100-speed.value)
+}
+
+speed.oninput = function() {
+    window.setInterval(frame, 100-speed.value)
+}
+
+window.setInterval(frame, 100-speed.value)
