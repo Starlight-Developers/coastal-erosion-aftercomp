@@ -1,12 +1,36 @@
 const canvas = document.getElementById("main");
-
 const ctx = canvas.getContext('2d');
 
-var map = new Map();
-var sea = new Sea(.3);
+var scale = 640;
+var sandCount = 0;
+var sandDestroyed = 0;
 
-map.createMap();
-sea.create();
+canvas.width = scale;
+canvas.height = scale;
+
+var walls = document.getElementById("walls");  
+var plants = document.getElementById("plants");  
+var time = document.getElementById("secondsPassed");
+var erode = document.getElementById("erodePercent");
+
+function reset() {
+    map = new Map();
+    sea = new Sea(.3);
+    sandCount = 0;
+    sandDestroyed = 0;
+
+    map.createMap();
+    sea.create();
+
+    if (walls.checked) {
+        createWall();
+    }
+    if (plants.checked) {
+        createPlants();
+    }
+
+    timer = 0;
+}
 
 function createWave() {
     for (var x = 0; x < 80; x++) {
@@ -36,20 +60,18 @@ function createPlants() {
     })
 }
 
-var timer = 0;
-
-createWall(); // comment out to disable walls
-createPlants(); // comment out to disable plants
+reset();
 
 window.setInterval(function() {
     map.moveMap();
-    if (timer == 0) {
+    if (timer%20 == 0) {
         createWave();
-        timer = 2;
     }
+    time.innerText = timer/10+" seconds have passed.";
     sea.move();
+    erode.innerText = Math.trunc(((sandCount-sandDestroyed)/sandCount)*100) + "% of sand is still left.";
     sea.draw();
     map.drawMap();
 
-    timer--;
+    timer++;
 }, 100)
