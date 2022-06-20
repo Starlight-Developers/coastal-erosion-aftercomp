@@ -36,7 +36,7 @@ class Pixel {
 
     draw() {
         ctx.fillStyle = this.color;
-        ctx.fillRect(this.x*10, this.y*10, 10, 10)
+        ctx.fillRect(this.x*(scale/80), this.y*(scale/80), (scale/80), (scale/80))
     }
 
     move() {
@@ -59,6 +59,7 @@ class Map {
                 if (b<15) {
                     if (!(b == 14 && Math.random()*b>8)) {
                         this.addPixel(i, b, "sand");
+                        sandCount++;
                     }
                 }
             }
@@ -80,6 +81,7 @@ class Map {
         if (Math.random() < max && pixel.removed == false && sand != null  && this.getPixel(pixel.x, pixel.y+1, "sand").pixel == null) {
             pixel.removed = true;
             this.pixels.splice(this.getPixel(pixel.x, pixel.y, "sand").index, 1);
+            sandDestroyed++;
             pixel.color = 'red';
         }
         pixel.y += 1;
@@ -169,7 +171,7 @@ class Sea {
                 if (g != 0) g = 1;
                 var water = colorLerp(g, {r: 42, g: 184, b:245}, {r:24, g:107, b:143});
                 ctx.fillStyle = 'rgba('+water.r+','+water.g+','+water.b+', 1.0)';
-                ctx.fillRect(x*10, b*10, 10, 10);
+                ctx.fillRect(x*(scale/80), b*(scale/80), (scale/80), (scale/80));
             }
         }
     }
