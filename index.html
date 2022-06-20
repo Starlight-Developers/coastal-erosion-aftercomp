@@ -7,10 +7,43 @@
         canvas {
             outline: 1px black solid;
         }
+        .container {
+            display: flex;
+            gap: 1%;
+        }
+        input[type='checkbox'] {
+            width:15px;
+            height:15px;
+            background:white;
+        }
+        button {
+            padding: 0px;
+        }
     </style>
 </head>
 <body>
-    <canvas id="main" width="800" height="800"></canvas>
+    <h1>Coastal Erosion Simulator</h1>
+    <div class="container">
+        <canvas id="main" width="400" height="400"></canvas>
+        <div>
+            <h2>Settings</h2>
+            <div>
+                <input type="checkbox" id="walls">
+                <label for="vehicle1"> Enable Walls</label><br>
+            </div>
+            <div>
+                <input type="checkbox" id="plants">
+                <label for="vehicle2"> Enable Plants</label><br>
+            </div>
+            <button type="button" onclick="reset()">
+                <strong>
+                    Reset
+                </strong> 
+            </button>
+            <h3 id="erodePercent"> 0% of sand is still left.</h3>
+            <h3 id="secondsPassed"> 0.0 seconds have passed.</h3>
+        </div>
+    </div>
     <script src="grid.js"></script>
     <script src="canvas.js"></script>
 </body>
